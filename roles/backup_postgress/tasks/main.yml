@@ -1,0 +1,25 @@
+---
+- name: Create backup directory if not exists
+  file: 
+    path: "{{ backup_dir }}"
+    state: directory
+    mode: '0755'
+
+- name: Dump PostgreSQL database
+  command: > 
+    docker compose exec {{ db_docker_container }} pg_dump -U {{ db_user }} {{ db_name }} -f /tmp/{{ db_name }}_backup.sql
+  args: 
+    chdir: "{{ project_dir}}"
+
+- name: Copy database backup to host
+  command: >
+    docker compose cp {{ db_docker_container }}:/tmp/{{ db_name }}_backup.sql {{ backup_dir }}/{{ db_name }}_backup_{{ ansible_date_time.date }}.sql
+  args:
+    chdir: "{{ project_dir }}"
+
+- name: Fetch backup
+  fetch: 
+    src: "{{ backup_dir }}/{{ db_name }}_backup_{{ ansible_date_time.date }}.sql"
+    dest: "{{ invoker_target_directory }}"
+    flat: yes
+# tasks file for backup_postgress

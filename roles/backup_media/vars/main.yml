@@ -1,0 +1,4 @@
+---
+media_path: "/home/{{ ansible_user }}/web/media/"
+file_name: "media_backup"
+# vars file for backup_media

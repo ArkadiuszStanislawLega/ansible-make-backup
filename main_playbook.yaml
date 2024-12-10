@@ -1,0 +1,12 @@
+---
+- name: Backup PostgreSQL and media files
+  hosts: target_server
+  become: yes
+  vars: 
+    backup_dir: "/home/{{ ansible_user }}/ansible_backup"
+    project_dir: "/home/{{ ansible_user }}/app"
+    invoker_target_directory: "/backups/"
+  roles: 
+    - backup_postgress
+    - backup_media
+...

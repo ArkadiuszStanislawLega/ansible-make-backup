@@ -1,0 +1,32 @@
+--- 
+- name: Get container ID by name
+  command: docker ps -q --filter "name=web"
+  register: container_id
+
+- name: Show container ID
+  debug:
+    msg: "Container ID: {{ container_id.stdout }}"
+
+- name: Archive media files
+  command: >
+    docker exec {{ container_id.stdout }} tar -czvf /tmp/{{ file_name }}.tar {{ media_path }}
+  args:
+    chdir: "{{ project_dir }}"
+
+- name: Create var for file name with date
+  set_fact:
+    file_name_with_date: "{{ file_name }}_{{ansible_date_time.date}}.tar"
+
+- name: Copy media files backup to host
+  command: >
+    docker cp {{ container_id.stdout }}:/tmp/{{ file_name }}.tar {{ backup_dir }}/{{ file_name_with_date }}
+  args: 
+    chdir: "{{ project_dir }}"
+
+- name: Fetch backup
+  fetch: 
+    src: "{{ backup_dir }}/{{ file_name_with_date }}"
+    dest: "{{ invoker_target_directory }}"
+    flat: yes
+
+  # tasks file for backup_media
