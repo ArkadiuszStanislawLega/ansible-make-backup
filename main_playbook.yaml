@@ -8,6 +8,8 @@
     invoker_target_directory: "/backups/"
     path_to_id_ed25519: "/home/username/.ssh/id_ed25519"
   roles: 
-    - backup_postgress
-    - backup_media
+    - role: backup_postgress
+      tags: ["backup_postgress"]
+    - role: backup_media
+      tags: ["backup_media"]
 ...
