@@ -6,6 +6,7 @@
     backup_dir: "/home/{{ ansible_user }}/ansible_backup"
     project_dir: "/home/{{ ansible_user }}/app"
     invoker_target_directory: "/backups/"
+    path_to_id_ed25519: "/home/username/.ssh/id_ed25519"
   roles: 
     - backup_postgress
     - backup_media
