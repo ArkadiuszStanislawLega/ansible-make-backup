@@ -29,4 +29,15 @@
     dest: "{{ invoker_target_directory }}"
     flat: yes
 
+- name: Remove created archive from docker container
+  command: >
+    docker compose exec web rm /tmp/{{ file_name }}.tar
+  args:
+    chdir: "{{ project_dir }}"
+
+- name: Remove archive from host
+  ansible.builtin.file:
+    path: "{{ backup_dir }}/{{ file_name_with_date }}"
+    state: absent
+
   # tasks file for backup_media
