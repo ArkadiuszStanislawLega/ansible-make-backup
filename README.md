@@ -20,8 +20,9 @@ Role Variables
 Before running the script you should change:
 
 1. Path to id_ed25519.
-2. Path to the bakcup directory.
-3. Check the README files of the roles what else needs to be changed.
+2. Path to the backup directory.
+3. Path to the invoker backup directory.
+4. Check the README files of the roles what else needs to be changed.
 
 Example of use
 ----------------
