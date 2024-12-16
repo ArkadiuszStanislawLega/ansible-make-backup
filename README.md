@@ -31,6 +31,14 @@ Example of use
 ansible-playbook -i host.yml main_playbook.yml --ask-become-pass
 ~~~
 
+Other links
+------------
+
+1. Automatic server installation: <https://github.com/ArkadiuszStanislawLega/ansible-start-server>
+2. Sending a backup: <https://github.com/ArkadiuszStanislawLega/ansible-push-backup>
+3. Server docker compose: <https://github.com/ArkadiuszStanislawLega/docker-django-web-server>
+
+
 License
 -------
 
